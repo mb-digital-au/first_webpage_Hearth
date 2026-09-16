@@ -622,6 +622,113 @@
     color: var(--ink-soft);
   }
 
+  /* ---------- Qualification flow ---------- */
+  .qualify-wrap{
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    padding: 32px;
+    background: var(--paper-deep);
+  }
+  @media (max-width: 480px){
+    .qualify-wrap{ padding: 24px 20px; }
+  }
+
+  .qualify-progress{
+    display: flex;
+    gap: 8px;
+    margin-bottom: 26px;
+  }
+  .step-dot{
+    height: 5px;
+    flex: 1;
+    border-radius: 999px;
+    background: var(--line);
+    transition: background 0.2s ease;
+  }
+  .step-dot.active, .step-dot.done{
+    background: var(--sage);
+  }
+
+  .qualify-step{
+    display: none;
+  }
+  .qualify-step.active{
+    display: block;
+    animation: fadeStep 0.3s ease;
+  }
+  @keyframes fadeStep{
+    from{ opacity: 0; transform: translateY(6px); }
+    to{ opacity: 1; transform: translateY(0); }
+  }
+
+  .qualify-step h3{
+    font-size: 1.3rem;
+    margin-bottom: 8px;
+  }
+  .qualify-sub{
+    color: var(--ink-soft);
+    font-size: 0.96rem;
+    margin-bottom: 22px;
+  }
+
+  .choice-list{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .choice-btn{
+    text-align: left;
+    padding: 14px 18px;
+    border-radius: 12px;
+    border: 1.5px solid var(--line);
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Inter', sans-serif;
+    font-size: 0.97rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: border-color 0.15s ease, background 0.15s ease;
+  }
+  .choice-btn:hover{
+    border-color: var(--sage);
+    background: rgba(111,143,114,0.08);
+  }
+
+  .qualify-back{
+    display: inline-block;
+    margin-top: 20px;
+    background: none;
+    border: none;
+    color: var(--ink-soft);
+    font-size: 0.88rem;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 4px 0;
+  }
+  .qualify-back:hover{ color: var(--ink); }
+
+  .exit-panel p{
+    color: var(--ink-soft);
+    font-size: 0.97rem;
+  }
+  .exit-panel p + p{ margin-top: 14px; }
+  .exit-list{
+    margin: 16px 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .exit-list li{
+    font-size: 0.95rem;
+    font-weight: 600;
+    padding: 12px 16px;
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+  }
+
   .contact-info h3{ font-size: 1.3rem; margin-bottom: 14px; }
   .contact-info p{ color: var(--ink-soft); }
   .contact-info .list{
@@ -694,69 +801,15 @@
     <a href="#contact">Contact</a>
     <a href="#contact" style="color:var(--gold-deep); font-weight:700;">Talk to a Listener</a>
   </div>
-</header> 
-  <!-- START OF HEARTH LEAD QUALIFICATION FORM -->
-<section id="qualification-form" style="padding: 60px 20px; background-color: #fdfbf7; text-align: center; font-family: 'Helvetica Neue', Arial, sans-serif;">
-    <div style="max-width: 600px; margin: 0 auto; background: #ffffff; padding: 40px 30px; border-radius: 16px; border: 1px solid #ebdccb; box-shadow: 0 4px 20px rgba(218,192,163,0.12);">
-        
-        <!-- Welcome Greeting -->
-        <h2 style="color: #2c2520; font-size: 26px; margin-bottom: 10px; font-weight: 600;">Welcome to Hearth</h2>
-        <p style="color: #70655c; font-size: 15px; margin-bottom: 30px; line-height: 1.5;">
-            We are here to offer a warm, safe space with a human listener. Please take 30 seconds to let us know how we can support you today.
-        </p>
+</header>
 
-        <!-- Form Elements -->
-        <form style="text-align: left;">
-            
-            <!-- Question 1 -->
-            <div style="margin-bottom: 25px;">
-                <label style="display: block; color: #2c2520; font-weight: 600; margin-bottom: 8px; font-size: 14px;">1. What kind of connection are you looking for?</label>
-                <select style="width: 100%; padding: 12px; border: 1px solid #ebdccb; border-radius: 8px; font-size: 14px; color: #4a4a4a; background-color: #fff;" required>
-                    <option value="" disabled selected>Select an option...</option>
-                    <option value="chat">A friendly, confidential chat with a human listener</option>
-                    <option value="crisis">Urgent medical or professional crisis support</option>
-                    <option value="other">General inquiry / Something else</option>
-                </select>
-            </div>
-
-            <!-- Question 2 -->
-            <div style="margin-bottom: 25px;">
-                <label style="display: block; color: #2c2520; font-weight: 600; margin-bottom: 8px; font-size: 14px;">2. How often would you like to connect with a listener?</label>
-                <select style="width: 100%; padding: 12px; border: 1px solid #ebdccb; border-radius: 8px; font-size: 14px; color: #4a4a4a; background-color: #fff;" required>
-                    <option value="" disabled selected>Select frequency...</option>
-                    <option value="one-time">Just a one-off conversation to clear my mind</option>
-                    <option value="weekly">Regular Weekly Check-ins</option>
-                    <option value="undecided">I am not sure yet</option>
-                </select>
-            </div>
-
-            <!-- Question 3: Contact Info -->
-            <div style="margin-bottom: 20px;">
-                <label style="display: block; color: #2c2520; font-weight: 600; margin-bottom: 8px; font-size: 14px;">3. Your Name</label>
-                <input type="text" placeholder="What should we call you?" style="width: 100%; padding: 12px; border: 1px solid #ebdccb; border-radius: 8px; font-size: 14px; box-sizing: border-box;" required>
-            </div>
-
-            <div style="margin-bottom: 30px;">
-                <label style="display: block; color: #2c2520; font-weight: 600; margin-bottom: 8px; font-size: 14px;">4. Your Email Address</label>
-                <input type="email" placeholder="you@example.com" style="width: 100%; padding: 12px; border: 1px solid #ebdccb; border-radius: 8px; font-size: 14px; box-sizing: border-box;" required>
-            </div>
-
-            <!-- Submit Button -->
-            <button type="submit" style="width: 100%; padding: 14px; background-color: #bfa07a; color: #ffffff; border: none; border-radius: 8px; font-size: 16px; font-weight: 600; cursor: pointer; transition: background 0.2s;">
-                Connect With a Listener
-            </button>
-
-        </form>
-    </div>
-</section>
-<!-- END OF HEARTH LEAD QUALIFICATION FORM -->
 <main id="top">
 
   <!-- HERO -->
   <section class="hero">
     <div class="wrap hero-grid">
       <div>
-        <h1>Sometimes you just need someone to listen.</h1>
+        <h1>Sometimes You Just Need Someone to Listen.</h1>
         <p class="hero-sub">Hearth connects you with a real, caring person for an honest conversation — no diagnosis, no judgment, no agenda. Just space to say what's on your mind.</p>
         <div class="hero-actions">
           <a href="#contact" class="btn btn-primary">Talk to a Listener</a>
@@ -916,7 +969,7 @@
           <a href="#contact" class="btn btn-ghost" style="justify-content:center;">Get in touch</a>
         </div>
         <div class="price-card featured">
-          <h3>Weekly Check-ins</h3>
+          <h3>Regular Check-ins</h3>
           <div class="price-amount">Weekly</div>
           <p class="price-desc">Ongoing conversations with the same listener.</p>
           <ul class="price-features">
@@ -998,23 +1051,104 @@
       <div>
         <span class="eyebrow">Talk to a listener</span>
         <h2>Ready when you are.</h2>
-        <p style="margin-top:16px; color:var(--ink-soft);">Send a note and we'll get back to you. This form is a placeholder for this early version of the site and doesn't send anything yet.</p>
-        <form class="contact-form" style="margin-top:30px;" onsubmit="event.preventDefault();">
-          <div class="field">
-            <label for="name">Your name</label>
-            <input id="name" type="text" placeholder="What should we call you?">
+        <p style="margin-top:16px; color:var(--ink-soft);">Answer a few quick questions and send a note — we'll get back to you. This is a placeholder for this early version of the site and doesn't send anything yet.</p>
+
+        <div class="qualify-wrap" id="qualifyWrap" style="margin-top:30px;">
+
+          <div class="qualify-progress" id="qualifyProgress">
+            <span class="step-dot active" data-dot="1"></span>
+            <span class="step-dot" data-dot="2"></span>
+            <span class="step-dot" data-dot="3"></span>
+            <span class="step-dot" data-dot="4"></span>
           </div>
-          <div class="field">
-            <label for="email">Email</label>
-            <input id="email" type="email" placeholder="you@example.com">
+
+          <!-- Step 1: safety check -->
+          <div class="qualify-step active" data-step="1">
+            <h3>One quick check before we begin.</h3>
+            <p class="qualify-sub">This just helps us make sure you're in the right place.</p>
+            <div class="choice-list">
+              <button type="button" class="choice-btn" data-goto="2">No, I'm safe — I'd just like to talk</button>
+              <button type="button" class="choice-btn" data-goto="crisis">Yes, I need help right now</button>
+            </div>
           </div>
-          <div class="field">
-            <label for="message">What's on your mind? (optional)</label>
-            <textarea id="message" placeholder="Share as much or as little as you like..."></textarea>
+
+          <!-- Crisis exit -->
+          <div class="qualify-step exit-panel" data-step="crisis">
+            <h3>Please reach out for immediate help</h3>
+            <p>Hearth is a listening service, not an emergency or crisis service, and we can't respond quickly enough to help right now. Please contact one of these instead:</p>
+            <ul class="exit-list">
+              <li>Your local emergency number</li>
+              <li>Lifeline Australia — 13 11 14</li>
+              <li>988 Suicide &amp; Crisis Lifeline (US) — call or text 988</li>
+              <li>Samaritans (UK &amp; Ireland) — 116 123</li>
+            </ul>
+            <p>You deserve support right now, and these services are ready to help immediately.</p>
+            <button type="button" class="btn btn-ghost" data-goto="1" style="margin-top:8px;">Start over</button>
           </div>
-          <button type="submit" class="btn btn-primary" style="align-self:flex-start;">Send message</button>
-          <p class="form-note">This is a learning project — no messages are sent or stored yet.</p>
-        </form>
+
+          <!-- Step 2: age check -->
+          <div class="qualify-step" data-step="2">
+            <h3>Just one more thing.</h3>
+            <p class="qualify-sub">Are you 18 or older?</p>
+            <div class="choice-list">
+              <button type="button" class="choice-btn" data-goto="3">Yes, I'm 18 or older</button>
+              <button type="button" class="choice-btn" data-goto="minor">No, I'm under 18</button>
+            </div>
+            <button type="button" class="qualify-back" data-goto="1">&larr; Back</button>
+          </div>
+
+          <!-- Under-18 exit -->
+          <div class="qualify-step exit-panel" data-step="minor">
+            <h3>Hearth is designed for adults</h3>
+            <p>Right now, Hearth's conversations are designed for people 18 and older. If you're under 18 and would like someone to talk to, please reach out to a trusted adult, a school counsellor, or a youth helpline in your area.</p>
+            <button type="button" class="btn btn-ghost" data-goto="1" style="margin-top:8px;">Start over</button>
+          </div>
+
+          <!-- Step 3: reason -->
+          <div class="qualify-step" data-step="3">
+            <h3>What's bringing you here today?</h3>
+            <p class="qualify-sub">This just helps us understand a little more. There's no wrong answer.</p>
+            <div class="choice-list">
+              <button type="button" class="choice-btn" data-goto="4">Feeling lonely or isolated</button>
+              <button type="button" class="choice-btn" data-goto="4">Feeling stressed or overwhelmed</button>
+              <button type="button" class="choice-btn" data-goto="4">Going through a big change</button>
+              <button type="button" class="choice-btn" data-goto="4">I just want to talk to someone</button>
+              <button type="button" class="choice-btn" data-goto="4">Something else</button>
+              <button type="button" class="choice-btn" data-goto="4">Prefer not to say</button>
+            </div>
+            <button type="button" class="qualify-back" data-goto="2">&larr; Back</button>
+          </div>
+
+          <!-- Step 4: contact details -->
+          <div class="qualify-step" data-step="4">
+            <h3>Almost done — how can we reach you?</h3>
+            <form class="contact-form" onsubmit="event.preventDefault(); goToQualifyStep('done');">
+              <div class="field">
+                <label for="name">Your name</label>
+                <input id="name" type="text" placeholder="What should we call you?">
+              </div>
+              <div class="field">
+                <label for="email">Email</label>
+                <input id="email" type="email" placeholder="you@example.com">
+              </div>
+              <div class="field">
+                <label for="message">Anything you'd like to add? (optional)</label>
+                <textarea id="message" placeholder="Share as much or as little as you like..."></textarea>
+              </div>
+              <button type="submit" class="btn btn-primary" style="align-self:flex-start;">Send message</button>
+              <p class="form-note">This is a learning project — no messages are sent or stored yet.</p>
+            </form>
+            <button type="button" class="qualify-back" data-goto="3">&larr; Back</button>
+          </div>
+
+          <!-- Done -->
+          <div class="qualify-step exit-panel" data-step="done">
+            <h3>Thank you for reaching out.</h3>
+            <p>We've received your note and will be in touch soon to arrange a time to talk.</p>
+            <button type="button" class="btn btn-ghost" data-goto="1" style="margin-top:8px;">Start over</button>
+          </div>
+
+        </div>
       </div>
       <div class="contact-info">
         <h3>Other ways to reach us</h3>
@@ -1089,6 +1223,30 @@
         answer.style.maxHeight = answer.scrollHeight + 'px';
       }
     });
+  });
+
+  // Qualification flow (client-side only — nothing is sent or stored)
+  function goToQualifyStep(step){
+    document.querySelectorAll('.qualify-step').forEach(el => el.classList.remove('active'));
+    const target = document.querySelector('.qualify-step[data-step="' + step + '"]');
+    if(target){ target.classList.add('active'); }
+
+    const progress = document.getElementById('qualifyProgress');
+    const exitSteps = ['crisis', 'minor', 'done'];
+    if(exitSteps.includes(step)){
+      progress.style.display = 'none';
+    } else {
+      progress.style.display = 'flex';
+      const stepNum = parseInt(step, 10);
+      document.querySelectorAll('.step-dot').forEach(dot => {
+        const dotNum = parseInt(dot.dataset.dot, 10);
+        dot.classList.toggle('active', dotNum <= stepNum);
+      });
+    }
+  }
+
+  document.querySelectorAll('#qualifyWrap [data-goto]').forEach(btn => {
+    btn.addEventListener('click', () => goToQualifyStep(btn.dataset.goto));
   });
 </script>
 
