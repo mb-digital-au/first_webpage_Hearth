@@ -1,272 +1,1261 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hearth — A real human conversation</title>
-    <link rel="preconnect" href="https://googleapis.com">
-    <link rel="preconnect" href="https://gstatic.com" crossorigin>
-    <link href="https://googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --bg-color: #FBFBFA;
-            --text-color: #2D312E;
-            --primary-color: #11321C;
-            --secondary-color: #4F6658;
-            --accent-color: #E68A4F;
-            --card-bg: #F4F4F2;
-            --border-color: #E2E2DF;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hearth — Someone to talk to</title>
+<meta name="description" content="Hearth is a human listening service. Talk to a real person, in confidence, whenever you just want to be heard.">
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 
-        body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            line-height: 1.6;
-            -webkit-font-smoothing: antialiased;
-        }
+<style>
+  :root{
+    --ink: #2A2330;
+    --ink-soft: #5B5261;
+    --paper: #FAF5EC;
+    --paper-deep: #F2E9D8;
+    --sage: #6F8F72;
+    --sage-deep: #55735A;
+    --gold: #C99A4A;
+    --gold-deep: #AD8038;
+    --line: rgba(42, 35, 48, 0.12);
+    --max: 1120px;
+  }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
+  *{ box-sizing: border-box; }
+  html{ scroll-behavior: smooth; }
 
-        header {
-            padding: 2rem 0;
-            border-bottom: 1px solid var(--border-color);
-        }
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior: auto; }
+    *{ animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+  }
 
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+  body{
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Work Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 17px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
 
-        .logo {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            font-weight: 700;
-            font-size: 1.5rem;
-            color: var(--primary-color);
-            text-decoration: none;
-        }
+  h1, h2, h3{
+    font-family: 'Playfair Display', Georgia, serif;
+    font-weight: 500;
+    line-height: 1.15;
+    margin: 0;
+    color: var(--ink);
+  }
 
-        .hero {
-            padding: 8rem 0 6rem 0;
-            min-height: 75vh;
-            display: flex;
-            align-items: center;
-        }
+  h2{
+    color: #E08A3D;
+  }
 
-        .hero-content {
-            max-width: 800px;
-        }
+  p{ margin: 0; }
 
-        .hero-content h1 {
-            font-size: clamp(2.5rem, 5vw, 4.5rem);
-            line-height: 1.1;
-            margin-bottom: 1.5rem;
-            font-family: sans-serif;
-            color: #11321C;
-        }
+  a{ color: inherit; }
 
-        .hero-content p {
-            font-size: clamp(1.1rem, 2vw, 1.3rem);
-            opacity: 0.9;
-            margin-bottom: 1.5rem;
-            max-width: 550px;
-            font-family: sans-serif;
-            color: #4F6658;
-        }
+  img, svg{ display: block; max-width: 100%; }
 
-        .cta-button {
-            display: inline-block;
-            background-color: var(--primary-color);
-            color: white;
-            padding: 1rem 2.5rem;
-            border-radius: 4px;
-            text-decoration: none;
-            font-weight: 500;
-            margin-top: 1rem;
-            transition: background-color 0.2s;
-        }
+  .wrap{
+    max-width: var(--max);
+    margin: 0 auto;
+    padding: 0 28px;
+  }
 
-        .cta-button:hover {
-            background-color: var(--secondary-color);
-        }
+  section{ padding: 96px 0; }
 
-        .section {
-            padding: 6rem 0;
-            border-top: 1px solid var(--border-color);
-        }
+  @media (max-width: 700px){
+    section{ padding: 64px 0; }
+    body{ font-size: 16px; }
+  }
 
-        .section-head {
-            margin-bottom: 4rem;
-        }
+  .eyebrow{
+    color: var(--sage-deep);
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 1.05rem;
+    margin-bottom: 14px;
+    display: block;
+  }
 
-        .section-head h2 {
-            font-size: clamp(1.7rem, 3vw, 2.3rem);
-            font-family: sans-serif;
-            color: #11321C;
-        }
+  /* ---------- Buttons ---------- */
+  .btn{
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 26px;
+    border-radius: 999px;
+    font-family: 'Work Sans', sans-serif;
+    font-weight: 600;
+    font-size: 0.98rem;
+    text-decoration: none;
+    border: 1.5px solid transparent;
+    cursor: pointer;
+    transition: transform 0.15s ease, background 0.15s ease, border-color 0.15s ease;
+  }
+  .btn:hover{ transform: translateY(-1px); }
 
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-        }
+  .btn-primary{
+    background: var(--gold);
+    color: #2A2330;
+  }
+  .btn-primary:hover{ background: var(--gold-deep); }
 
-        .card {
-            background-color: var(--card-bg);
-            padding: 2.5rem;
-            border-radius: 4px;
-            border: 1px solid var(--border-color);
-        }
+  .btn-ghost{
+    background: transparent;
+    border-color: var(--line);
+    color: var(--ink);
+  }
+  .btn-ghost:hover{ border-color: var(--ink); }
 
-        .card h3 {
-            font-family: sans-serif;
-            font-weight: 600;
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-            color: var(--primary-color);
-        }
+  /* ---------- Nav ---------- */
+  header{
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(250, 245, 236, 0.92);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--line);
+  }
 
-        .price {
-            font-size: 2rem;
-            font-weight: 600;
-            margin: 1.5rem 0;
-            font-family: sans-serif;
-        }
+  nav{
+    max-width: var(--max);
+    margin: 0 auto;
+    padding: 18px 28px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
 
-        .price span {
-            font-size: 1rem;
-            font-weight: 400;
-            color: var(--secondary-color);
-        }
+  .brand{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    font-weight: 600;
+    text-decoration: none;
+    color: var(--ink);
+  }
+  .brand-mark{
+    width: 30px; height: 30px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, var(--gold) 0%, var(--sage) 100%);
+    flex-shrink: 0;
+  }
 
-        .features-list {
-            list-style: none;
-            margin-bottom: 2rem;
-        }
+  .nav-links{
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    list-style: none;
+    margin: 0; padding: 0;
+  }
+  .nav-links a{
+    text-decoration: none;
+    font-size: 0.96rem;
+    font-weight: 500;
+    color: var(--ink-soft);
+    transition: color 0.15s ease;
+  }
+  .nav-links a:hover{ color: var(--ink); }
 
-        .features-list li {
-            margin-bottom: 0.5rem;
-            position: relative;
-            padding-left: 1.5rem;
-        }
+  .nav-cta{ display: flex; align-items: center; gap: 20px; }
 
-        .features-list li::before {
-            content: "—";
-            position: absolute;
-            left: 0;
-            color: var(--accent-color);
-        }
+  .menu-btn{
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 6px;
+  }
+  .menu-btn svg{ width: 26px; height: 26px; }
 
-        .faq-item {
-            margin-bottom: 2.5rem;
-            max-width: 800px;
-        }
+  @media (max-width: 860px){
+    .nav-links{ display: none; }
+    .menu-btn{ display: block; }
+    .nav-cta .btn-ghost{ display: none; }
+  }
 
-        .faq-item h3 {
-            font-family: sans-serif;
-            font-weight: 600;
-            font-size: 1.3rem;
-            margin-bottom: 0.75rem;
-            color: var(--primary-color);
-        }
+  .mobile-menu{
+    display: none;
+    flex-direction: column;
+    gap: 4px;
+    padding: 8px 28px 22px;
+    border-top: 1px solid var(--line);
+  }
+  .mobile-menu.open{ display: flex; }
+  .mobile-menu a{
+    text-decoration: none;
+    color: var(--ink-soft);
+    padding: 12px 0;
+    font-weight: 500;
+    border-bottom: 1px solid var(--line);
+  }
+  .mobile-menu a:last-child{ border-bottom: none; }
 
-        footer {
-            padding: 4rem 0;
-            border-top: 1px solid var(--border-color);
-            color: var(--secondary-color);
-            font-size: 0.9rem;
-        }
+  /* ---------- Hero ---------- */
+  .hero{
+    padding: 88px 0 100px;
+    opacity: 0;
+    transform: translateY(14px);
+    animation: rise 0.9s ease forwards 0.1s;
+  }
+  @keyframes rise{ to{ opacity: 1; transform: translateY(0); } }
 
-        @media (max-width: 768px) {
-            .container { padding: 0 1.5rem; }
-            .hero { padding: 4rem 0; }
-        }
-    </style>
+  .hero-grid{
+    display: grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: 56px;
+    align-items: center;
+  }
+
+  @media (max-width: 860px){
+    .hero-grid{ grid-template-columns: 1fr; }
+    .hero{ padding-top: 56px; }
+  }
+
+  .hero h1{
+    font-size: clamp(2.3rem, 5vw, 3.4rem);
+    letter-spacing: -0.01em;
+  }
+
+  .hero-sub{
+    margin-top: 22px;
+    font-size: 1.15rem;
+    color: var(--ink-soft);
+    max-width: 46ch;
+  }
+
+  .hero-actions{
+    margin-top: 34px;
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .hero-note{
+    margin-top: 22px;
+    font-size: 0.88rem;
+    color: var(--ink-soft);
+  }
+
+  .hero-visual{
+    position: relative;
+    aspect-ratio: 4/5;
+    border-radius: 28px;
+    background:
+      radial-gradient(circle at 30% 20%, rgba(201,154,74,0.35), transparent 55%),
+      radial-gradient(circle at 75% 75%, rgba(111,143,114,0.4), transparent 55%),
+      var(--paper-deep);
+    overflow: hidden;
+    border: 1px solid var(--line);
+  }
+  .hero-visual::before{
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image:
+      radial-gradient(circle, rgba(42,35,48,0.08) 1.4px, transparent 1.4px);
+    background-size: 22px 22px;
+    opacity: 0.5;
+  }
+  .hero-quote{
+    position: absolute;
+    left: 28px; right: 28px; bottom: 30px;
+    background: rgba(250,245,236,0.88);
+    backdrop-filter: blur(4px);
+    border-radius: 16px;
+    padding: 22px 22px;
+    border: 1px solid var(--line);
+  }
+  .hero-quote p{
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 1.05rem;
+    color: var(--ink);
+  }
+  .hero-quote span{
+    display: block;
+    margin-top: 10px;
+    font-family: 'Work Sans', sans-serif;
+    font-style: normal;
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+  }
+
+  @media (max-width: 860px){
+    .hero-visual{ aspect-ratio: 16/10; }
+  }
+
+  /* ---------- Section headers ---------- */
+  .section-head{
+    max-width: 640px;
+    margin-bottom: 52px;
+  }
+  .section-head h2{
+    font-size: clamp(1.7rem, 3vw, 2.3rem);
+  }
+  .section-head p{
+    margin-top: 16px;
+    color: var(--ink-soft);
+    font-size: 1.05rem;
+  }
+
+  /* ---------- What this is ---------- */
+  .what-grid > div > h2{
+    font-size: clamp(1.7rem, 3vw, 2.3rem);
+  }
+  .what-grid{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: start;
+  }
+  @media (max-width: 780px){
+    .what-grid{ grid-template-columns: 1fr; gap: 36px; }
+  }
+  .what-grid > p{
+    font-size: 1.1rem;
+    color: var(--ink-soft);
+  }
+  .what-list{
+    list-style: none;
+    margin: 0; padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+  }
+  .what-list li{
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    padding-bottom: 22px;
+    border-bottom: 1px solid var(--line);
+  }
+  .what-list li:last-child{ border-bottom: none; padding-bottom: 0; }
+  .what-list .dot{
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--sage);
+    margin-top: 9px;
+    flex-shrink: 0;
+  }
+  .what-list strong{ display: block; font-weight: 600; margin-bottom: 4px; }
+  .what-list span.desc{ color: var(--ink-soft); font-size: 0.97rem; }
+
+  /* ---------- Who it's for ---------- */
+  .who{ background: var(--paper-deep); }
+  .who-grid{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  @media (max-width: 780px){
+    .who-grid{ grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 520px){
+    .who-grid{ grid-template-columns: 1fr; }
+  }
+  .who-card{
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    padding: 26px 24px;
+  }
+  .who-card p{
+    font-size: 1rem;
+    color: var(--ink);
+  }
+
+  /* ---------- How it works ---------- */
+  .steps{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 36px;
+  }
+  @media (max-width: 900px){
+    .steps{ grid-template-columns: 1fr 1fr; row-gap: 44px; }
+  }
+  @media (max-width: 560px){
+    .steps{ grid-template-columns: 1fr; }
+  }
+  .step{ position: relative; }
+  .step-num{
+    font-family: 'Playfair Display', serif;
+    font-size: 2.6rem;
+    color: var(--gold-deep);
+    line-height: 1;
+    margin-bottom: 18px;
+  }
+  .step h3{
+    font-size: 1.15rem;
+    margin-bottom: 8px;
+  }
+  .step p{
+    color: var(--ink-soft);
+    font-size: 0.96rem;
+  }
+
+  /* ---------- Why a real person ---------- */
+  .why{
+    background: var(--ink);
+    color: var(--paper);
+    border-radius: 28px;
+    margin: 0 28px;
+    padding: 80px 48px;
+  }
+  @media (max-width: 700px){
+    .why{ padding: 56px 26px; margin: 0 16px; }
+  }
+  .why-inner{
+    max-width: var(--max);
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 0.9fr 1.1fr;
+    gap: 56px;
+    align-items: start;
+  }
+  @media (max-width: 860px){
+    .why-inner{ grid-template-columns: 1fr; gap: 32px; }
+  }
+  .why h2{ color: #E08A3D; font-size: clamp(1.7rem, 3vw, 2.3rem); }
+  .why-points{
+    list-style: none;
+    margin: 0; padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 26px;
+  }
+  .why-points li strong{
+    display: block;
+    font-family: 'Playfair Display', serif;
+    font-weight: 500;
+    font-size: 1.1rem;
+    margin-bottom: 6px;
+  }
+  .why-points li span{
+    color: rgba(250,245,236,0.72);
+    font-size: 0.97rem;
+  }
+
+  /* ---------- Pricing ---------- */
+  .pricing-grid{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+  @media (max-width: 860px){
+    .pricing-grid{ grid-template-columns: 1fr; max-width: 420px; margin: 0 auto; }
+  }
+  .price-card{
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    padding: 32px 28px;
+    background: var(--paper);
+    display: flex;
+    flex-direction: column;
+  }
+  .price-card.featured{
+    border-color: var(--sage);
+    box-shadow: 0 0 0 1px var(--sage);
+    position: relative;
+  }
+  .price-card.featured::before{
+    content: "For ongoing support";
+    position: absolute;
+    top: -13px; left: 28px;
+    background: var(--sage);
+    color: var(--paper);
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 5px 12px;
+    border-radius: 999px;
+  }
+  .price-card h3{ font-size: 1.2rem; }
+  .price-amount{
+    font-family: 'Playfair Display', serif;
+    font-size: 2.1rem;
+    margin: 16px 0 4px;
+  }
+  .price-amount sub{ font-size: 0.95rem; font-weight: 400; color: var(--ink-soft); }
+  .price-desc{ color: var(--ink-soft); font-size: 0.93rem; margin-bottom: 22px; }
+  .price-features{
+    list-style: none;
+    margin: 0 0 28px; padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    flex-grow: 1;
+  }
+  .price-features li{
+    font-size: 0.93rem;
+    display: flex;
+    gap: 10px;
+    color: var(--ink);
+  }
+  .price-features li svg{ flex-shrink: 0; margin-top: 3px; width: 15px; height: 15px; color: var(--sage-deep); }
+  .price-note{
+    text-align: center;
+    margin-top: 36px;
+    color: var(--ink-soft);
+    font-size: 0.92rem;
+  }
+
+  /* ---------- FAQ ---------- */
+  .faq-list{
+    max-width: 760px;
+    display: flex;
+    flex-direction: column;
+  }
+  .faq-item{
+    border-bottom: 1px solid var(--line);
+  }
+  .faq-q{
+    width: 100%;
+    background: none;
+    border: none;
+    text-align: left;
+    padding: 22px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    cursor: pointer;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.08rem;
+    color: var(--ink);
+  }
+  .faq-q .plus{
+    flex-shrink: 0;
+    width: 22px; height: 22px;
+    position: relative;
+  }
+  .faq-q .plus::before, .faq-q .plus::after{
+    content: "";
+    position: absolute;
+    background: var(--ink);
+    transition: transform 0.2s ease;
+  }
+  .faq-q .plus::before{ top: 50%; left: 0; width: 100%; height: 1.5px; transform: translateY(-50%); }
+  .faq-q .plus::after{ left: 50%; top: 0; height: 100%; width: 1.5px; transform: translateX(-50%); }
+  .faq-item.open .plus::after{ transform: translateX(-50%) rotate(90deg); opacity: 0; }
+
+  .faq-a{
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.25s ease;
+  }
+  .faq-a-inner{
+    padding-bottom: 22px;
+    color: var(--ink-soft);
+    font-size: 0.98rem;
+    max-width: 62ch;
+  }
+
+  /* ---------- Disclaimer ---------- */
+  .disclaimer{
+    background: var(--paper-deep);
+  }
+  .disclaimer-box{
+    border: 1.5px solid var(--sage);
+    border-radius: 20px;
+    padding: 40px 36px;
+    display: flex;
+    gap: 22px;
+    align-items: flex-start;
+  }
+  @media (max-width: 600px){
+    .disclaimer-box{ flex-direction: column; padding: 28px 24px; }
+  }
+  .disclaimer-box svg{
+    width: 30px; height: 30px;
+    color: var(--sage-deep);
+    flex-shrink: 0;
+    margin-top: 4px;
+  }
+  .disclaimer-box h3{
+    font-size: 1.25rem;
+    margin-bottom: 12px;
+  }
+  .disclaimer-box p{
+    color: var(--ink-soft);
+    font-size: 0.98rem;
+  }
+  .disclaimer-box p + p{ margin-top: 12px; }
+
+  /* ---------- Contact ---------- */
+  .contact-grid{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+  }
+  @media (max-width: 780px){
+    .contact-grid{ grid-template-columns: 1fr; gap: 40px; }
+  }
+  .contact-form{
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+  .field label{
+    display: block;
+    font-size: 0.88rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+  .field input, .field textarea{
+    width: 100%;
+    padding: 13px 15px;
+    border-radius: 10px;
+    border: 1px solid var(--line);
+    background: var(--paper);
+    font-family: 'Work Sans', sans-serif;
+    font-size: 0.98rem;
+    color: var(--ink);
+  }
+  .field input:focus, .field textarea:focus{
+    outline: 2px solid var(--sage);
+    outline-offset: 1px;
+  }
+  .field textarea{ resize: vertical; min-height: 110px; }
+
+  .form-note{
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+  }
+
+  /* ---------- Qualification flow ---------- */
+  .qualify-wrap{
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    padding: 32px;
+    background: var(--paper-deep);
+  }
+  @media (max-width: 480px){
+    .qualify-wrap{ padding: 24px 20px; }
+  }
+
+  .qualify-progress{
+    display: flex;
+    gap: 8px;
+    margin-bottom: 26px;
+  }
+  .step-dot{
+    height: 5px;
+    flex: 1;
+    border-radius: 999px;
+    background: var(--line);
+    transition: background 0.2s ease;
+  }
+  .step-dot.active, .step-dot.done{
+    background: var(--sage);
+  }
+
+  .qualify-step{
+    display: none;
+  }
+  .qualify-step.active{
+    display: block;
+    animation: fadeStep 0.3s ease;
+  }
+  @keyframes fadeStep{
+    from{ opacity: 0; transform: translateY(6px); }
+    to{ opacity: 1; transform: translateY(0); }
+  }
+
+  .qualify-step h3{
+    font-size: 1.3rem;
+    margin-bottom: 8px;
+  }
+  .qualify-sub{
+    color: var(--ink-soft);
+    font-size: 0.96rem;
+    margin-bottom: 22px;
+  }
+
+  .choice-list{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .choice-btn{
+    text-align: left;
+    padding: 14px 18px;
+    border-radius: 12px;
+    border: 1.5px solid var(--line);
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Work Sans', sans-serif;
+    font-size: 0.97rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: border-color 0.15s ease, background 0.15s ease;
+  }
+  .choice-btn:hover{
+    border-color: var(--sage);
+    background: rgba(111,143,114,0.08);
+  }
+
+  .qualify-back{
+    display: inline-block;
+    margin-top: 20px;
+    background: none;
+    border: none;
+    color: var(--ink-soft);
+    font-size: 0.88rem;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 4px 0;
+  }
+  .qualify-back:hover{ color: var(--ink); }
+
+  .exit-panel p{
+    color: var(--ink-soft);
+    font-size: 0.97rem;
+  }
+  .exit-panel p + p{ margin-top: 14px; }
+  .exit-list{
+    margin: 16px 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .exit-list li{
+    font-size: 0.95rem;
+    font-weight: 600;
+    padding: 12px 16px;
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+  }
+
+  .contact-info h3{ font-size: 1.3rem; margin-bottom: 14px; }
+  .contact-info p{ color: var(--ink-soft); }
+  .contact-info .list{
+    margin-top: 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+  .contact-info .list div strong{ display: block; font-size: 0.95rem; }
+  .contact-info .list div span{ color: var(--ink-soft); font-size: 0.93rem; }
+
+  /* ---------- Footer ---------- */
+  footer{
+    border-top: 1px solid var(--line);
+    padding: 44px 0;
+  }
+  .footer-inner{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  .footer-inner .brand{ font-size: 1.1rem; }
+  .footer-links{
+    display: flex;
+    gap: 26px;
+    list-style: none;
+    margin: 0; padding: 0;
+  }
+  .footer-links a{ text-decoration: none; color: var(--ink-soft); font-size: 0.9rem; }
+  .footer-links a:hover{ color: var(--ink); }
+  .footer-fine{
+    margin-top: 24px;
+    color: var(--ink-soft);
+    font-size: 0.82rem;
+  }
+
+  :focus-visible{
+    outline: 2px solid var(--sage-deep);
+    outline-offset: 2px;
+  }
+</style>
 </head>
 <body>
 
-    <header>
-        <div class="container">
-            <nav>
-                <a href="#" class="logo">Hearth</a>
-            </nav>
+<header>
+  <nav>
+    <a href="#top" class="brand"><span class="brand-mark"></span>Hearth</a>
+    <ul class="nav-links">
+      <li><a href="#what">What it is</a></li>
+      <li><a href="#how">How it works</a></li>
+      <li><a href="#pricing">Services</a></li>
+      <li><a href="#faq">FAQ</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <div class="nav-cta">
+      <a href="#contact" class="btn btn-ghost">Contact</a>
+      <a href="#contact" class="btn btn-primary">Talk to a Listener</a>
+    </div>
+    <button class="menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 6h18M3 12h18M3 18h18" stroke-linecap="round"/></svg>
+    </button>
+  </nav>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#what">What it is</a>
+    <a href="#how">How it works</a>
+    <a href="#pricing">Services</a>
+    <a href="#faq">FAQ</a>
+    <a href="#contact">Contact</a>
+    <a href="#contact" style="color:var(--gold-deep); font-weight:700;">Talk to a Listener</a>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <h1>A real person. A real conversation. Just for you.</h1>
+        <p class="hero-sub">Hearth connects you with a real, caring person for an honest conversation — no diagnosis, no judgment, no agenda. Just space to say what's on your mind.</p>
+        <div class="hero-actions">
+          <a href="#contact" class="btn btn-primary">Talk to a Listener</a>
+          <a href="#what" class="btn btn-ghost">How it works</a>
         </div>
-    </header>
-
-    <main>
-        <section class="hero">
-            <div class="container">
-                <div class="hero-content">
-                    <h1>A place to talk, with someone who's actually there to listen.</h1>
-                    <p>Ready when you are.</p>
-                    <p>Why talking to a real person still matters.</p>
-                    <a href="mailto:talk@hearth.com" class="cta-button">Book a chat</a>
-                </div>
-            </div>
-        </section>
-
-        <section id="packages" class="section">
-            <div class="container">
-                <div class="section-head">
-                    <h2>Packages</h2>
-                </div>
-                <div class="grid">
-                    <div class="card">
-                        <h3>Single Conversation</h3>
-                        <p>A one-off session when you just need an objective, focused ear to sort through things.</p>
-                        <div class="price">$45<span> / 30 min</span></div>
-                        <ul class="features-list">
-                            <li>100% focused human presence</li>
-                            <li>Zero judgment environment</li>
-                            <li>Secure audio link</li>
-                        </ul>
-                    </div>
-                    <div class="card">
-                        <h3>Weekly Check-in</h3>
-                        <p>A regular space built into your routine to unpack your week and keep clear alignment.</p>
-                        <div class="price">$140<span> / month</span></div>
-                        <ul class="features-list">
-                            <li>Four monthly 30-min sessions</li>
-                            <li>Consistent listener connection</li>
-                            <li>Priority scheduling windows</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="faq" class="section">
-            <div class="container">
-                <div class="section-head">
-                    <h2>Frequently asked Questions</h2>
-                </div>
-                <div class="faq-item">
-                    <h3>Is this therapy?</h3>
-                    <p>No. We provide high-intent listening and conversational engagement. We don't diagnose, prescribe, or offer formal treatment plans. We are here to process thoughts out loud with you.</p>
-                </div>
-                <div class="faq-item">
-                    <h3>Who will be listening?</h3>
-                    <p>An actual, vetted human companion focused entirely on your words. No automated scripts, no AI responses, no multitasking.</p>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <footer>
-        <div class="container">
-            <p>&copy; 2026 Hearth. All rights reserved.</p>
+        <p class="hero-note">Not therapy or counselling. A calm, confidential space to be heard.</p>
+      </div>
+      <div class="hero-visual">
+        <div class="hero-quote">
+          <p>"I didn't need advice. I just needed someone to actually listen."</p>
+          <span>— A Hearth conversation</span>
         </div>
-    </footer>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHAT THIS IS -->
+  <section id="what">
+    <div class="wrap what-grid">
+      <div>
+        <span class="eyebrow">What Hearth is</span>
+        <h2>A place to talk, with someone who's actually there to listen.</h2>
+        <p style="margin-top:20px;">Hearth is a human listening service. When you reach out for a conversation, you're matched with a real, trained listener who gives you their full attention — by phone or video call — for as long as you talk. There's no clinical assessment, no notes filed away, no treatment plan. Just a private conversation, on your terms.</p>
+      </div>
+      <ul class="what-list">
+        <li>
+          <span class="dot"></span>
+          <div>
+            <strong>A real person, not a script</strong>
+            <span class="desc">Every conversation is with a human listener — attentive, warm, and present.</span>
+          </div>
+        </li>
+        <li>
+          <span class="dot"></span>
+          <div>
+            <strong>Private and confidential</strong>
+            <span class="desc">What you share stays between you and your listener.</span>
+          </div>
+        </li>
+        <li>
+          <span class="dot"></span>
+          <div>
+            <strong>No judgment, no agenda</strong>
+            <span class="desc">You don't need a reason. You can talk about anything, or nothing in particular.</span>
+          </div>
+        </li>
+        <li>
+          <span class="dot"></span>
+          <div>
+            <strong>On your schedule</strong>
+            <span class="desc">Reach out for a single conversation or a regular check-in — whatever suits you.</span>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- WHO IT'S FOR -->
+  <section class="who">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Who it's for</span>
+        <h2>For anyone who wants to feel a little less alone.</h2>
+        <p>Hearth is for people of any age or background. You don't need a crisis or a diagnosis to want to talk — sometimes you just do.</p>
+      </div>
+      <div class="who-grid">
+        <div class="who-card"><p>Feeling lonely or isolated, even surrounded by people</p></div>
+        <div class="who-card"><p>Carrying a lot and needing to think out loud</p></div>
+        <div class="who-card"><p>Going through a big change or transition</p></div>
+        <div class="who-card"><p>Missing regular, unhurried conversation</p></div>
+        <div class="who-card"><p>Working through something confusing on your own</p></div>
+        <div class="who-card"><p>Simply wanting to talk to another human being</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section id="how">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">How it works</span>
+        <h2>Four simple steps to your first conversation.</h2>
+      </div>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">01</div>
+          <h3>Reach out</h3>
+          <p>Send a message whenever you'd like to talk — no long forms, no waiting lists.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">02</div>
+          <h3>Get matched</h3>
+          <p>We connect you with a trained listener suited to what you'd like to talk about.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">03</div>
+          <h3>Have the conversation</h3>
+          <p>Talk by phone or video, in a private, unhurried space, for as long as suits you.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">04</div>
+          <h3>Come back anytime</h3>
+          <p>Reach out again whenever you'd like — a one-off chat or a regular rhythm.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY A REAL PERSON -->
+  <section>
+    <div class="why">
+      <div class="why-inner">
+        <div>
+          <span class="eyebrow" style="color:var(--gold);">Why it matters</span>
+          <h2>Why talking to a real person still matters.</h2>
+        </div>
+        <ul class="why-points">
+          <li>
+            <strong>Being heard changes how a moment feels</strong>
+            <span>Saying something out loud to someone who's genuinely listening can loosen a thought that's been stuck for days.</span>
+          </li>
+          <li>
+            <strong>Human attention is different</strong>
+            <span>A real listener notices tone, pace, and pauses — and responds to you, not to a pattern.</span>
+          </li>
+          <li>
+            <strong>Connection is the point</strong>
+            <span>Sometimes the value isn't a solution. It's simply not carrying something alone for a while.</span>
+          </li>
+          <li>
+            <strong>No performance required</strong>
+            <span>You don't have to explain yourself perfectly. A good listener meets you wherever you're starting from.</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section id="pricing">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">The service</span>
+        <h2>A few ways to talk with someone.</h2>
+        <p>Details are still being worked out — here's a general sense of what conversations could look like.</p>
+      </div>
+      <div class="pricing-grid">
+        <div class="price-card">
+          <h3>Single Conversation</h3>
+          <div class="price-amount">30 min</div>
+          <p class="price-desc">A one-off conversation, whenever you need it.</p>
+          <ul class="price-features">
+            <li><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 10l4 4 8-8"/></svg>30-minute call</li>
+            <li><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 10l4 4 8-8"/></svg>Matched with a listener</li>
+            <li><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 10l4 4 8-8"/></svg>Phone or video</li>
+          </ul>
+          <a href="#contact" class="btn btn-ghost" style="justify-content:center;">Get in touch</a>
+        </div>
+        <div class="price-card featured">
+          <h3>Regular Check-ins</h3>
+          <div class="price-amount">Weekly</div>
+          <p class="price-desc">Ongoing conversations with the same listener.</p>
+          <ul class="price-features">
+            <li><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 10l4 4 8-8"/></svg>Four 30-minute calls a month</li>
+            <li><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 10l4 4 8-8"/></svg>Same listener each time</li>
+            <li><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 10l4 4 8-8"/></svg>Flexible timing</li>
+          </ul>
+          <a href="#contact" class="btn btn-primary" style="justify-content:center;">Get in touch</a>
+        </div>
+        <div class="price-card">
+          <h3>Extended Conversation</h3>
+          <div class="price-amount">60 min</div>
+          <p class="price-desc">More time and space, for bigger things on your mind.</p>
+          <ul class="price-features">
+            <li><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 10l4 4 8-8"/></svg>60-minute call</li>
+            <li><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 10l4 4 8-8"/></svg>Matched with a listener</li>
+            <li><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 10l4 4 8-8"/></svg>Phone or video</li>
+          </ul>
+          <a href="#contact" class="btn btn-ghost" style="justify-content:center;">Get in touch</a>
+        </div>
+      </div>
+      <p class="price-note">This is an early look at the service — details, including how conversations are arranged, are still being worked out.</p>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Frequently asked</span>
+        <h2>Questions people often ask.</h2>
+      </div>
+      <div class="faq-list" id="faqList">
+        <div class="faq-item">
+          <button class="faq-q"><span>Is this therapy or counselling?</span><span class="plus"></span></button>
+          <div class="faq-a"><div class="faq-a-inner">No. Hearth is a listening service, not therapy, counselling, or a medical service. Our listeners aren't clinicians and won't diagnose, treat, or give medical or mental health advice. It's simply a space to talk to a caring person.</div></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q"><span>Who are the listeners?</span><span class="plus"></span></button>
+          <div class="faq-a"><div class="faq-a-inner">Listeners are everyday people chosen and trained for their warmth, patience, and ability to listen well. They're not therapists — they're there to give you their full, undivided attention.</div></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q"><span>Is it really confidential?</span><span class="plus"></span></button>
+          <div class="faq-a"><div class="faq-a-inner">Yes. Conversations are private between you and your listener. We'll always be upfront about the very limited situations — like immediate safety concerns — where confidentiality can't be guaranteed.</div></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q"><span>What can I talk about?</span><span class="plus"></span></button>
+          <div class="faq-a"><div class="faq-a-inner">Anything you'd like — a hard day, a big decision, loneliness, or nothing in particular. There's no wrong topic and nothing is too small.</div></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q"><span>What if I'm in crisis?</span><span class="plus"></span></button>
+          <div class="faq-a"><div class="faq-a-inner">Hearth is not a crisis support service and listeners aren't equipped to respond to emergencies. If you're in crisis or at risk, please contact a local emergency service or crisis line instead.</div></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q"><span>How do calls actually work?</span><span class="plus"></span></button>
+          <div class="faq-a"><div class="faq-a-inner">Once you reach out, we'll arrange a time and send a simple link to join by phone or video. No apps to install.</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DISCLAIMER -->
+  <section class="disclaimer">
+    <div class="wrap">
+      <div class="disclaimer-box">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 9v4M12 16.5h.01M10.3 3.9L2.7 17.3a1.6 1.6 0 001.4 2.4h16a1.6 1.6 0 001.4-2.4L13.7 3.9a1.6 1.6 0 00-2.8 0z" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <div>
+          <h3>Please read: what Hearth is not</h3>
+          <p>Hearth is a human listening service focused on connection and conversation. It is <strong>not</strong> therapy, counselling, medical advice, or a substitute for professional mental health care. Listeners are not clinicians and cannot diagnose or treat any condition.</p>
+          <p>Hearth is also <strong>not a crisis support service.</strong> If you are in crisis, thinking about harming yourself, or in immediate danger, please contact your local emergency number or a crisis line right away.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="wrap contact-grid">
+      <div>
+        <span class="eyebrow">Talk to a listener</span>
+        <h2>Ready when you are.</h2>
+        <p style="margin-top:16px; color:var(--ink-soft);">Answer a few quick questions and send a note — we'll get back to you. This is a placeholder for this early version of the site and doesn't send anything yet.</p>
+
+        <div class="qualify-wrap" id="qualifyWrap" style="margin-top:30px;">
+
+          <div class="qualify-progress" id="qualifyProgress">
+            <span class="step-dot active" data-dot="1"></span>
+            <span class="step-dot" data-dot="2"></span>
+            <span class="step-dot" data-dot="3"></span>
+            <span class="step-dot" data-dot="4"></span>
+          </div>
+
+          <!-- Step 1: safety check -->
+          <div class="qualify-step active" data-step="1">
+            <h3>One quick check before we begin.</h3>
+            <p class="qualify-sub">This just helps us make sure you're in the right place.</p>
+            <div class="choice-list">
+              <button type="button" class="choice-btn" data-goto="2">No, I'm safe — I'd just like to talk</button>
+              <button type="button" class="choice-btn" data-goto="crisis">Yes, I need help right now</button>
+            </div>
+          </div>
+
+          <!-- Crisis exit -->
+          <div class="qualify-step exit-panel" data-step="crisis">
+            <h3>Please reach out for immediate help</h3>
+            <p>Hearth is a listening service, not an emergency or crisis service, and we can't respond quickly enough to help right now. Please contact one of these instead:</p>
+            <ul class="exit-list">
+              <li>Your local emergency number</li>
+              <li>Lifeline Australia — 13 11 14</li>
+              <li>988 Suicide &amp; Crisis Lifeline (US) — call or text 988</li>
+              <li>Samaritans (UK &amp; Ireland) — 116 123</li>
+            </ul>
+            <p>You deserve support right now, and these services are ready to help immediately.</p>
+            <button type="button" class="btn btn-ghost" data-goto="1" style="margin-top:8px;">Start over</button>
+          </div>
+
+          <!-- Step 2: age check -->
+          <div class="qualify-step" data-step="2">
+            <h3>Just one more thing.</h3>
+            <p class="qualify-sub">Are you 18 or older?</p>
+            <div class="choice-list">
+              <button type="button" class="choice-btn" data-goto="3">Yes, I'm 18 or older</button>
+              <button type="button" class="choice-btn" data-goto="minor">No, I'm under 18</button>
+            </div>
+            <button type="button" class="qualify-back" data-goto="1">&larr; Back</button>
+          </div>
+
+          <!-- Under-18 exit -->
+          <div class="qualify-step exit-panel" data-step="minor">
+            <h3>Hearth is designed for adults</h3>
+            <p>Right now, Hearth's conversations are designed for people 18 and older. If you're under 18 and would like someone to talk to, please reach out to a trusted adult, a school counsellor, or a youth helpline in your area.</p>
+            <button type="button" class="btn btn-ghost" data-goto="1" style="margin-top:8px;">Start over</button>
+          </div>
+
+          <!-- Step 3: reason -->
+          <div class="qualify-step" data-step="3">
+            <h3>What's bringing you here today?</h3>
+            <p class="qualify-sub">This just helps us understand a little more. There's no wrong answer.</p>
+            <div class="choice-list">
+              <button type="button" class="choice-btn" data-goto="4">Feeling lonely or isolated</button>
+              <button type="button" class="choice-btn" data-goto="4">Feeling stressed or overwhelmed</button>
+              <button type="button" class="choice-btn" data-goto="4">Going through a big change</button>
+              <button type="button" class="choice-btn" data-goto="4">I just want to talk to someone</button>
+              <button type="button" class="choice-btn" data-goto="4">Something else</button>
+              <button type="button" class="choice-btn" data-goto="4">Prefer not to say</button>
+            </div>
+            <button type="button" class="qualify-back" data-goto="2">&larr; Back</button>
+          </div>
+
+          <!-- Step 4: contact details -->
+          <div class="qualify-step" data-step="4">
+            <h3>Almost done — how can we reach you?</h3>
+            <form class="contact-form" onsubmit="event.preventDefault(); goToQualifyStep('done');">
+              <div class="field">
+                <label for="name">Your name</label>
+                <input id="name" type="text" placeholder="What should we call you?">
+              </div>
+              <div class="field">
+                <label for="email">Email</label>
+                <input id="email" type="email" placeholder="you@example.com">
+              </div>
+              <div class="field">
+                <label for="message">Anything you'd like to add? (optional)</label>
+                <textarea id="message" placeholder="Share as much or as little as you like..."></textarea>
+              </div>
+              <button type="submit" class="btn btn-primary" style="align-self:flex-start;">Send message</button>
+              <p class="form-note">This is a learning project — no messages are sent or stored yet.</p>
+            </form>
+            <button type="button" class="qualify-back" data-goto="3">&larr; Back</button>
+          </div>
+
+          <!-- Done -->
+          <div class="qualify-step exit-panel" data-step="done">
+            <h3>Thank you for reaching out.</h3>
+            <p>We've received your note and will be in touch soon to arrange a time to talk.</p>
+            <button type="button" class="btn btn-ghost" data-goto="1" style="margin-top:8px;">Start over</button>
+          </div>
+
+        </div>
+      </div>
+      <div class="contact-info">
+        <h3>Other ways to reach us</h3>
+        <p>For general questions about Hearth, before you get in touch for a conversation.</p>
+        <div class="list">
+          <div>
+            <strong>Email</strong>
+            <span>hello@hearth-example.com</span>
+          </div>
+          <div>
+            <strong>Hours</strong>
+            <span>Listeners available 8am – 10pm, most days</span>
+          </div>
+          <div>
+            <strong>In crisis?</strong>
+            <span>Please contact a local emergency service or crisis line — Hearth is not equipped for emergencies.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-inner">
+      <a href="#top" class="brand"><span class="brand-mark"></span>Hearth</a>
+      <ul class="footer-links">
+        <li><a href="#what">What it is</a></li>
+        <li><a href="#pricing">Services</a></li>
+        <li><a href="#faq">FAQ</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+    <p class="footer-fine">Hearth is a human listening service. It is not therapy, counselling, medical advice, or crisis support. If you are in crisis, please contact your local emergency number or a crisis line. © 2026 Hearth. This is a learning-project demo site.</p>
+  </div>
+</footer>
+
+<script>
+  // Mobile menu toggle
+  const menuBtn = document.getElementById('menuBtn');
+  const mobileMenu = document.getElementById('mobileMenu');
+  menuBtn.addEventListener('click', () => {
+    const isOpen = mobileMenu.classList.toggle('open');
+    menuBtn.setAttribute('aria-expanded', isOpen);
+  });
+  mobileMenu.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      mobileMenu.classList.remove('open');
+      menuBtn.setAttribute('aria-expanded', 'false');
+    });
+  });
+
+  // FAQ accordion
+  document.querySelectorAll('.faq-item').forEach(item => {
+    const btn = item.querySelector('.faq-q');
+    const answer = item.querySelector('.faq-a');
+    btn.addEventListener('click', () => {
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item.open').forEach(open => {
+        if(open !== item){
+          open.classList.remove('open');
+          open.querySelector('.faq-a').style.maxHeight = null;
+        }
+      });
+      if(isOpen){
+        item.classList.remove('open');
+        answer.style.maxHeight = null;
+      } else {
+        item.classList.add('open');
+        answer.style.maxHeight = answer.scrollHeight + 'px';
+      }
+    });
+  });
+
+  // Qualification flow (client-side only — nothing is sent or stored)
+  function goToQualifyStep(step){
+    document.querySelectorAll('.qualify-step').forEach(el => el.classList.remove('active'));
+    const target = document.querySelector('.qualify-step[data-step="' + step + '"]');
+    if(target){ target.classList.add('active'); }
+
+    const progress = document.getElementById('qualifyProgress');
+    const exitSteps = ['crisis', 'minor', 'done'];
+    if(exitSteps.includes(step)){
+      progress.style.display = 'none';
+    } else {
+      progress.style.display = 'flex';
+      const stepNum = parseInt(step, 10);
+      document.querySelectorAll('.step-dot').forEach(dot => {
+        const dotNum = parseInt(dot.dataset.dot, 10);
+        dot.classList.toggle('active', dotNum <= stepNum);
+      });
+    }
+  }
+
+  document.querySelectorAll('#qualifyWrap [data-goto]').forEach(btn => {
+    btn.addEventListener('click', () => goToQualifyStep(btn.dataset.goto));
+  });
+</script>
 
 </body>
+</html>
