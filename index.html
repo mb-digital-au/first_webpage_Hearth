@@ -1,1 +1,272 @@
-index.html with Clean Sans-Serif and Forest Tones
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hearth — A real human conversation</title>
+    <link rel="preconnect" href="https://googleapis.com">
+    <link rel="preconnect" href="https://gstatic.com" crossorigin>
+    <link href="https://googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #FBFBFA;
+            --text-color: #2D312E;
+            --primary-color: #11321C;
+            --secondary-color: #4F6658;
+            --accent-color: #E68A4F;
+            --card-bg: #F4F4F2;
+            --border-color: #E2E2DF;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        header {
+            padding: 2rem 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .hero {
+            padding: 8rem 0 6rem 0;
+            min-height: 75vh;
+            display: flex;
+            align-items: center;
+        }
+
+        .hero-content {
+            max-width: 800px;
+        }
+
+        .hero-content h1 {
+            font-size: clamp(2.5rem, 5vw, 4.5rem);
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            font-family: sans-serif;
+            color: #11321C;
+        }
+
+        .hero-content p {
+            font-size: clamp(1.1rem, 2vw, 1.3rem);
+            opacity: 0.9;
+            margin-bottom: 1.5rem;
+            max-width: 550px;
+            font-family: sans-serif;
+            color: #4F6658;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1rem 2.5rem;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 500;
+            margin-top: 1rem;
+            transition: background-color 0.2s;
+        }
+
+        .cta-button:hover {
+            background-color: var(--secondary-color);
+        }
+
+        .section {
+            padding: 6rem 0;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .section-head {
+            margin-bottom: 4rem;
+        }
+
+        .section-head h2 {
+            font-size: clamp(1.7rem, 3vw, 2.3rem);
+            font-family: sans-serif;
+            color: #11321C;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            padding: 2.5rem;
+            border-radius: 4px;
+            border: 1px solid var(--border-color);
+        }
+
+        .card h3 {
+            font-family: sans-serif;
+            font-weight: 600;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+
+        .price {
+            font-size: 2rem;
+            font-weight: 600;
+            margin: 1.5rem 0;
+            font-family: sans-serif;
+        }
+
+        .price span {
+            font-size: 1rem;
+            font-weight: 400;
+            color: var(--secondary-color);
+        }
+
+        .features-list {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+
+        .features-list li {
+            margin-bottom: 0.5rem;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+
+        .features-list li::before {
+            content: "—";
+            position: absolute;
+            left: 0;
+            color: var(--accent-color);
+        }
+
+        .faq-item {
+            margin-bottom: 2.5rem;
+            max-width: 800px;
+        }
+
+        .faq-item h3 {
+            font-family: sans-serif;
+            font-weight: 600;
+            font-size: 1.3rem;
+            margin-bottom: 0.75rem;
+            color: var(--primary-color);
+        }
+
+        footer {
+            padding: 4rem 0;
+            border-top: 1px solid var(--border-color);
+            color: var(--secondary-color);
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .container { padding: 0 1.5rem; }
+            .hero { padding: 4rem 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <nav>
+                <a href="#" class="logo">Hearth</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <h1>A place to talk, with someone who's actually there to listen.</h1>
+                    <p>Ready when you are.</p>
+                    <p>Why talking to a real person still matters.</p>
+                    <a href="mailto:talk@hearth.com" class="cta-button">Book a chat</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="packages" class="section">
+            <div class="container">
+                <div class="section-head">
+                    <h2>Packages</h2>
+                </div>
+                <div class="grid">
+                    <div class="card">
+                        <h3>Single Conversation</h3>
+                        <p>A one-off session when you just need an objective, focused ear to sort through things.</p>
+                        <div class="price">$45<span> / 30 min</span></div>
+                        <ul class="features-list">
+                            <li>100% focused human presence</li>
+                            <li>Zero judgment environment</li>
+                            <li>Secure audio link</li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <h3>Weekly Check-in</h3>
+                        <p>A regular space built into your routine to unpack your week and keep clear alignment.</p>
+                        <div class="price">$140<span> / month</span></div>
+                        <ul class="features-list">
+                            <li>Four monthly 30-min sessions</li>
+                            <li>Consistent listener connection</li>
+                            <li>Priority scheduling windows</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="faq" class="section">
+            <div class="container">
+                <div class="section-head">
+                    <h2>Frequently asked Questions</h2>
+                </div>
+                <div class="faq-item">
+                    <h3>Is this therapy?</h3>
+                    <p>No. We provide high-intent listening and conversational engagement. We don't diagnose, prescribe, or offer formal treatment plans. We are here to process thoughts out loud with you.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>Who will be listening?</h3>
+                    <p>An actual, vetted human companion focused entirely on your words. No automated scripts, no AI responses, no multitasking.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Hearth. All rights reserved.</p>
+        </div>
+    </footer>
+
+</body>
