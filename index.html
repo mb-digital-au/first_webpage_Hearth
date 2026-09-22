@@ -1096,7 +1096,7 @@
       <div>
         <span class="eyebrow">Talk to a listener</span>
         <h2>Ready when you are.</h2>
-        <p style="margin-top:16px; color:var(--ink-soft);">Answer a few quick questions and send a note — we'll get back to you. This is a placeholder for this early version of the site and doesn't send anything yet.</p>
+        <p style="margin-top:16px; color:var(--ink-soft);">Answer a few quick questions first — it just helps make sure you're in the right place. At the end, you'll be pointed to the Book a Chat form to actually reach us.</p>
 
         <div class="qualify-wrap" id="qualifyWrap" style="margin-top:30px;">
 
@@ -1164,33 +1164,14 @@
             <button type="button" class="qualify-back" data-goto="2">&larr; Back</button>
           </div>
 
-          <!-- Step 4: contact details -->
+          <!-- Step 4: hand off to the real Book a Chat form -->
           <div class="qualify-step" data-step="4">
-            <h3>Almost done — how can we reach you?</h3>
-            <form class="contact-form" onsubmit="event.preventDefault(); goToQualifyStep('done');">
-              <div class="field">
-                <label for="name">Your name</label>
-                <input id="name" type="text" placeholder="What should we call you?">
-              </div>
-              <div class="field">
-                <label for="email">Email</label>
-                <input id="email" type="email" placeholder="you@example.com">
-              </div>
-              <div class="field">
-                <label for="message">Anything you'd like to add? (optional)</label>
-                <textarea id="message" placeholder="Share as much or as little as you like..."></textarea>
-              </div>
-              <button type="submit" class="btn btn-primary" style="align-self:flex-start;">Send message</button>
-              <p class="form-note">This is a learning project — no messages are sent or stored yet.</p>
-            </form>
+            <h3>You're ready.</h3>
+            <p class="qualify-sub">Thanks for taking a moment to check in. When you're ready, you can book a chat with a listener below — that's where your message actually reaches us.</p>
+            <div class="choice-list">
+              <a href="#book-a-chat" class="btn btn-primary" style="justify-content:center;">Continue to Book a Chat</a>
+            </div>
             <button type="button" class="qualify-back" data-goto="3">&larr; Back</button>
-          </div>
-
-          <!-- Done -->
-          <div class="qualify-step exit-panel" data-step="done">
-            <h3>Thank you for reaching out.</h3>
-            <p>We've received your note and will be in touch soon to arrange a time to talk.</p>
-            <button type="button" class="btn btn-ghost" data-goto="1" style="margin-top:8px;">Start over</button>
           </div>
 
         </div>
@@ -1330,7 +1311,7 @@
     if(target){ target.classList.add('active'); }
 
     const progress = document.getElementById('qualifyProgress');
-    const exitSteps = ['crisis', 'minor', 'done'];
+    const exitSteps = ['crisis', 'minor'];
     if(exitSteps.includes(step)){
       progress.style.display = 'none';
     } else {
